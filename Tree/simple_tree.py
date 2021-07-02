@@ -5,7 +5,7 @@ import sys
 sys.path.append('C:/Users/asadu/Desktop/Code/DSA/Queue')
 from simpleQueue import Queue
 
-class Node(object):
+class Node():
     """
     A class to represent node for graphs and Trees.
     ...
@@ -29,6 +29,11 @@ class Node(object):
         self.right = None
         self.left = None
 
+    def get_data(self):
+        """
+        Returns self.data.
+        """
+        return self.data
     def __str__(self) -> str:
         return str(self.data)
 
@@ -47,6 +52,8 @@ class Tree():
         Method to create a tree using queue.
     get_height()
         Method to find the height of the Tree.
+    count()
+        Method to count number of nodes in the tree.
     show()
         Method for displaying the tree.
     """
@@ -57,34 +64,37 @@ class Tree():
         """
         Method for creating the Tree.
         Uses a Queue data structure to implement a Tree through Inorder.
-        
+
         returns : None
         """
-        q = Queue()
+        queue = Queue()
         self.root = Node(input("Enter the root value: "))
-        q.enqueue(self.root)
+        queue.enqueue(self.root)
 
-        while(not q.is_empty()):
-            p = q.dequeue()
-            l = int(input("Enter left child of {}: ".format(p.data)))
-            if (l != -1):
-                left = Node(l)
-                p.data.left = left
-                q.enqueue(left)
+        while not queue.is_empty():
+            current = queue.dequeue()
+            lchild = int(input("Enter left child of {}: ".format(current.data)))
+            if lchild != -1:
+                left = Node(lchild)
+                current.data.left = left
+                queue.enqueue(left)
 
-            r = int(input("Enter right child {}: ".format(p.data)))
-            if (r != -1):
-                right = Node(r)
-                p.data.right = right
-                q.enqueue(right)
-    
+            rchild = int(input("Enter right child {}: ".format(current.data)))
+            if rchild != -1:
+                right = Node(rchild)
+                current.data.right = right
+                queue.enqueue(right)
+
     def get_root(self):
+        """
+        Returns self.root
+        """
         return self.root
 
     def height(self, root):
         """
         Returns the height of the tree.
-        
+
         root (Node): Base of the tree.
 
         returns : int - height of the tree
@@ -92,10 +102,10 @@ class Tree():
         if not root:
             return 0
 
-        l = self.height(root.left)
-        r = self.height(root.right)
+        left = self.height(root.left)
+        right = self.height(root.right)
 
-        return l + 1 if l > r else r + 1
+        return left + 1 if left > right else right + 1
 
     def _preorder(self, root):
         if root:
@@ -115,14 +125,17 @@ class Tree():
             self._postorder(root.right)
             print(root.data, end=" ")
 
-    def _levelorder(self, root):
-        q = Queue()
-        q.enqueue(root)
-        while(not q.is_empty()):
-            p = q.dequeue()
-            print(p.data.data)
-            if p.data.left: q.enqueue(p.data.left)
-            if p.data.right: q.enqueue(p.data.right)
+    def _levelorder(self):
+        root = self.get_root()
+        queue = Queue()
+        queue.enqueue(root)
+        while not queue.is_empty():
+            current = queue.dequeue()
+            print(current.data.data)
+            if current.data.left:
+                queue.enqueue(current.data.left)
+            if current.data.right:
+                queue.enqueue(current.data.right)
 
     def count(self, root):
         """
@@ -131,27 +144,29 @@ class Tree():
         root (Node): Base of the tree.
 
         returns: int - number of nodes in a Tree.
- 
+
         """
         if root:
             return self.count(root.left) + self.count(root.right) + 1
         return 0
 
-    def show(self, type=1):
+    def show(self, order=1):
         """
         Method to print the Tree in preorder, inorder, and postorder traversal.
-        
-        type (int): Type of traversal required.
+
+        order (int): Type of traversal required.
                     1. Preorder
                     2. Inorder
                     3. Postorder
                     4. Levelorder
         """
-        if type == 1:
+        if order == 1:
             self._preorder(self.root)
-        elif type == 2:
+        elif order == 2:
             self._inorder(self.root)
-        elif type == 3:
+        elif order == 3:
             self._postorder(self.root)
+        elif order == 4:
+            self._levelorder()
         else:
-            self._levelorder(self.root)
+            return
