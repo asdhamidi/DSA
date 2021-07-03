@@ -3,6 +3,24 @@ Code for a Binary Search Tree.
 """
 from simple_tree import Tree, Node
 
+def inorder_successor(root):
+    """Returns inorder successor.
+
+    root(Node): Right the child of the Node.
+    """
+    while root and root.left:
+        root = root.left
+    return root
+
+def inorder_predecessor(root):
+    """Returns inorder predecessor.
+
+    root(Node): Left the child of the Node.
+    """
+    while root and root.right:
+        root = root.right
+    return root
+
 class BST(Tree):
     """
     A class to reresent a Tree.
@@ -75,3 +93,34 @@ class BST(Tree):
 
         returns: None
         """
+        self.root = self._delete(self.root, data)
+
+    def _delete(self, root, data):
+        """
+        Deletes the element if found in the tree.
+
+        root(Node): Root of the tree.
+        data (int): Element to be deleted.
+
+        returns: Node
+        """
+        if root is None:
+            return None
+
+        if root.right is None and root.left is None:
+            return None
+
+        if data > root.data:
+            root.right = self._delete(root.right, data)
+        elif data < root.data:
+            root.left =  self._delete(root.left, data)
+        else:
+            if self.height(root.left) > self.height(root.right):
+                temp = inorder_predecessor(root.left)
+                root.data = temp.data
+                root.left = self._delete(root.left, temp.data)
+            else:
+                temp = inorder_successor(root.right)
+                root.data = temp.data
+                root.right = self._delete(root.right, temp.data)
+        return root
