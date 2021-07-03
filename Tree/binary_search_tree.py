@@ -23,7 +23,7 @@ def inorder_predecessor(root):
 
 class BST(Tree):
     """
-    A class to reresent a Tree.
+    A class to represent a Tree.
     ...
     Attributes:
     ----------
@@ -84,6 +84,19 @@ class BST(Tree):
                     else:
                         root.left = Node(data)
                         return
+
+    def recursive_insert(self, data):
+        self.root = self._recursive_insert(self.root, data)
+
+    def _recursive_insert(self, root, data):
+        if root is None:
+            return Node(data)
+        
+        if data < root.data:
+            root.left = self._recursive_insert(root.left, data)
+        elif data > root.data:
+            root.right = self._recursive_insert(root.right, data)
+        return root
 
     def delete(self, data):
         """

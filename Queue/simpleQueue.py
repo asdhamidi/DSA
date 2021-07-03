@@ -1,11 +1,9 @@
 """
 Code for a simple queue data structure.
 """
-
-class Node(object):
-    def __init__(self, data):
-        self.data = data
-        self.next = None
+import sys
+sys.path.append('../DSA/LL')
+from linked_list import Node
 
 class Queue(object):
     def __init__(self):

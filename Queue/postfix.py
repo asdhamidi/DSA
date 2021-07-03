@@ -64,9 +64,3 @@ class Conversion:
                     self.result.append(current[1] * current[0])
                 else:
                     self.result.append(current[1] / current[0])
-
-if __name__ == "__main__":
-    obj = Conversion()
-    obj.convert("1+2-3*4")
-    obj.eval()
-    obj.show_output()

@@ -1,5 +1,3 @@
-import sys
-sys.path.insert(0, 'C:/Users/asadu/Desktop/Code/DSA/Queue')
 from simpleQueue import Queue, Node
 
 class CircularQueue(Queue):
@@ -35,16 +33,3 @@ class CircularQueue(Queue):
                 current = current.next
             s += str(current.data)
             return s
-
-if __name__ == "__main__":
-    q = CircularQueue()
-    for r in range(5): q.enqueue(r)
-    print(q)
-    q.dequeue()
-    print(q)
-    q.enqueue(5)
-    print(q)
-    print("Size of the queue: ", q.length())
-    for r in range(5): q.dequeue()
-    print(q)
-

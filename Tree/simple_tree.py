@@ -2,9 +2,8 @@
 Code for a Node object and a Tree object.
 """
 import sys
-sys.path.append('C:/Users/asadu/Desktop/Code/DSA/Queue')
+sys.path.append('../DSA/Queue')
 from simpleQueue import Queue
-print(sys.path)
 
 class Node():
     """
