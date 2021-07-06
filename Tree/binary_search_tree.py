@@ -1,7 +1,6 @@
 """
 Code for a Binary Search Tree.
 """
-from typing_extensions import IntVar
 from simple_tree import Tree, Node
 
 def inorder_successor(root):

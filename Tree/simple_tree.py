@@ -170,3 +170,4 @@ class Tree():
             self._levelorder()
         else:
             return
+        print()
