@@ -1,6 +1,7 @@
 """
 Code for a Binary Search Tree.
 """
+from typing_extensions import IntVar
 from simple_tree import Tree, Node
 
 def inorder_successor(root):
@@ -137,3 +138,20 @@ class BST(Tree):
                 root.data = temp.data
                 root.right = self._delete(root.right, temp.data)
         return root
+
+    def _inverse(self, root):
+        if root.left is None and root.right is None:
+            return root
+
+        root.left, root.right = root.right, root.left
+
+        root.left = self._inverse(root.left)
+        root.right = self._inverse(root.right)
+
+        return root
+
+    def inverse(self):
+        """
+        Inverses a Binary Search Tree.
+        """
+        self.root = self._inverse(self.get_root())
