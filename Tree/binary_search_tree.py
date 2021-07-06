@@ -3,24 +3,6 @@ Code for a Binary Search Tree.
 """
 from simple_tree import Tree, Node
 
-def inorder_successor(root):
-    """Returns inorder successor.
-
-    root(Node): Right the child of the Node.
-    """
-    while root and root.left:
-        root = root.left
-    return root
-
-def inorder_predecessor(root):
-    """Returns inorder predecessor.
-
-    root(Node): Left the child of the Node.
-    """
-    while root and root.right:
-        root = root.right
-    return root
-
 class BST(Tree):
     """
     A class to represent a Tree.
@@ -86,12 +68,17 @@ class BST(Tree):
                         return
 
     def recursive_insert(self, data):
+        """
+        Inserts an element into the Tree recursively.
+
+        data (Any): Element to be inserted.
+        """
         self.root = self._recursive_insert(self.root, data)
 
     def _recursive_insert(self, root, data):
         if root is None:
             return Node(data)
-        
+
         if data < root.data:
             root.left = self._recursive_insert(root.left, data)
         elif data > root.data:
@@ -129,11 +116,11 @@ class BST(Tree):
             root.left =  self._delete(root.left, data)
         else:
             if self.height(root.left) > self.height(root.right):
-                temp = inorder_predecessor(root.left)
+                temp = self.inorder_predecessor(root.left)
                 root.data = temp.data
                 root.left = self._delete(root.left, temp.data)
             else:
-                temp = inorder_successor(root.right)
+                temp = self.inorder_successor(root.right)
                 root.data = temp.data
                 root.right = self._delete(root.right, temp.data)
         return root
@@ -154,3 +141,25 @@ class BST(Tree):
         Inverses a Binary Search Tree.
         """
         self.root = self._inverse(self.get_root())
+
+    @staticmethod
+    def inorder_successor(root):
+        """
+        Returns inorder successor.
+
+        root(Node): Right the child of the Node.
+        """
+        while root and root.left:
+            root = root.left
+        return root
+
+    @staticmethod
+    def inorder_predecessor(root):
+        """
+        Returns inorder predecessor.
+
+        root(Node): Left the child of the Node.
+        """
+        while root and root.right:
+            root = root.right
+        return root
