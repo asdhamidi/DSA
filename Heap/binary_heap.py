@@ -45,22 +45,18 @@ class Heap:
         self.elements.pop()
 
         i = 0
-        left = 2*i + 1
-        right = left + 1
+        largest = 2*i + 1
 
-        while left < len(self.elements) - 1:
-            higher = left if self.elements[left] > self.elements[right] else right
-
-            if self.elements[higher] > self.elements[i]:
-                temp = self.elements[i]
-                self.elements[i] = self.elements[higher]
-                self.elements[higher] = temp
-                i = higher
+        while largest < len(self.elements) - 1:
+            if self.elements[largest] < self.elements[largest + 1]:
+                largest += 1
+            
+            if self.elements[largest] > self.elements[i]:
+                self.elements[largest], self.elements[i] = self.elements[i], self.elements[largest]
+                i = largest
+                largest = 2 * i
             else:
                 break
-
-            left = 2*i + 1
-            right = left + 1
 
         return out
 
@@ -70,5 +66,24 @@ class Heap:
         """
         return len(self.elements) == 0
 
+    def sort(self):
+        new_heap = []
+        for r in range(len(self.elements)):
+            new_heap.append(self.delete())
+        self.elements = new_heap
+            
     def __str__(self) -> str:
         return " ".join([str(r) for r in self.elements])
+
+b = Heap()
+b.insert(50)
+b.insert(30)
+b.insert(20)
+b.insert(15)
+b.insert(10)
+b.insert(8)
+b.insert(16)
+print(b)
+b.insert(60)
+b.sort()
+print(b)
