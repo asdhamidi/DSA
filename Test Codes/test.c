@@ -57,7 +57,7 @@ void enqueue(struct Node **head, struct Node **tail)
 void insert(struct Node **head)
 {   
     struct Node *new = (struct Node *)malloc(sizeof(struct Node));
-    new->data = 69;
+    scanf("%d", &new->data);
     new->next = NULL;
 
     if(!(*head))
@@ -98,7 +98,7 @@ struct Node * Ddelete(struct Node **head)
 
     struct Node **current = head;
     while((*current)->data != key)
-    *current = (*current)->next;
+    current = &(*current)->next;
 
     *current = (*current)->next;
 }
@@ -167,7 +167,7 @@ int main()
         switch (choice)
         {
         case 1:
-            push(&head);
+            insert(&head);
             break;
         case 2:
             Ddelete(&head);

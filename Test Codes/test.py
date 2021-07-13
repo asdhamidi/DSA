@@ -1,16 +1,14 @@
-import sys
-sys.path.append('C:/Users/asadu/Desktop/Code/DSA/Tree')
-from binary_search_tree import BST
+# import required libraries
+import requests
+import time
+from bs4 import BeautifulSoup
+from win10toast import ToastNotifier
 
-b = BST()
-b.insert(5)
-b.insert(9)
-b.insert(1)
-b.insert(15)
-b.insert(11)
+# create an object to ToastNotifier class
+n = ToastNotifier()
+time.sleep(5)
 
-b.show(2)
-if b.search(b.get_root(), 15):
-    print("\n15 is found.")
-else:
-    print("Not found.")
+for r in range(5):
+    n.show_toast("You're Dumb", duration = 3)
+    time.sleep(5)
+    
