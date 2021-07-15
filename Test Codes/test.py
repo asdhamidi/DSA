@@ -6,9 +6,8 @@ from win10toast import ToastNotifier
 
 # create an object to ToastNotifier class
 n = ToastNotifier()
-time.sleep(5)
 
 for r in range(5):
-    n.show_toast("You're Dumb", duration = 3)
-    time.sleep(5)
+    n.show_toast("You're Dumb", duration = 1)
+    time.sleep(0.25)
     

@@ -142,6 +142,67 @@ class BST(Tree):
         """
         self.root = self._inverse(self.get_root())
 
+    def get_largest(self, root):
+        l = r = 0
+
+        if root.left: l = self.get_largest(root.left)
+        if root.right: r = self.get_largest(root.right)
+
+        return max(root.data, max(l, r))
+
+    def get_smallest(self, root):
+        l = r = float("inf")
+
+        if root.left: l = self.get_smallest(root.left)
+        if root.right: r = self.get_smallest(root.right)
+
+        return min(root.data, min(l, r))
+    
+    def total_nodes(self, root):
+        if not root:
+            return 0
+        
+        l = self.total_nodes(root.left)
+        r = self.total_nodes(root.right)
+        
+        return l + r + 1
+    
+    def total_leaf_nodes(self, root):
+        if root is None:
+            return 0 
+            
+        if root.left is None and root.right is None:
+            return 1
+        
+        l = self.total_leaf_nodes(root.left)
+        r = self.total_leaf_nodes(root.right)
+        
+        return l + r
+
+    def only_left(self, root):
+        if not root:
+            return 0
+        
+        if root.right is None and root.left is not None:
+            return self.only_left(root.left) + 1
+        else:
+            l = self.only_left(root.left)
+            r = self.only_left(root.right)
+
+            return l + r
+    
+    def only_right(self, root):
+        if not root:
+            return 0
+        
+        if root.right is not None and root.left is None:
+            return self.only_right(root.right) + 1
+        else:
+            l = self.only_right(root.left)
+            r = self.only_right(root.right)
+
+            return l + r
+            
     @staticmethod
     def inorder_successor(root):
         """
@@ -163,3 +224,20 @@ class BST(Tree):
         while root and root.right:
             root = root.right
         return root
+
+
+b = BST()
+b.insert(7)
+b.insert(2)
+b.insert(4)
+b.insert(1)
+b.insert(6)
+b.insert(8)
+b.insert(9)
+
+print(b.get_largest(b.get_root()))
+print(b.get_smallest(b.get_root()))
+print(b.total_nodes(b.get_root()))
+print(b.total_leaf_nodes(b.get_root()))
+print(b.only_left(b.get_root()))
+print(b.only_right(b.get_root()))

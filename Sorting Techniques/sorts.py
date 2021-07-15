@@ -243,12 +243,13 @@ def shell_sort(arr):
 
             i += 1
             j += 1
-        
-        while i - gap > -1:
-            if arr[i] < arr[i - gap]:
-                arr[i], arr[i - gap] = arr[i - gap], arr[i]
-            
-            i -= 1
+
+            k = i
+            while k - gap > -1:
+                if arr[k] < arr[k - gap]:
+                    arr[k], arr[k - gap] = arr[k - gap], arr[k]
+                
+                k -= gap
         
         gap //= 2
     
@@ -332,7 +333,7 @@ class TestSortAlgos(unittest.TestCase):
         self.assertEqual(sorted(arr), radix_sort(arr))
         
     def test_shell(self):
-        arr = [5,2,2,4,9,4]
+        arr = [7,5,6,9,4,3,0]
         self.assertEqual(sorted(arr), shell_sort(arr))
         
     def test_count(self):
